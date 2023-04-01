@@ -3,7 +3,7 @@ This is a dedicated guide to help with spin up a Neutrino node with lnd 0.16.0-B
 + Watchtower support
 - NOSFT locally (prerequisites: Node v18+)
 * LNDg (prerequisites: NGNIX, Docker)
-- Balance of Satoshi (BOS) with  Telegram bot and static channel back up (SCB)
+- Balance of Satoshi (BOS) with  Telegram bot and static channel backup (SCB)
 - More to come :)
 
 
@@ -360,7 +360,7 @@ npm run dev
 
 # Optional: Install LNDg
 
-## Install Docker (lndg prerequisite)
+## Install Docker (LNDg prerequisite)
 Install Docker install (for LNDG) Set up and install Docker Engine from Docker’s apt repository. https://docs.docker.com/engine/install/ubuntu/
 
 ### Set up the repository
@@ -415,7 +415,7 @@ sudo apt  install docker-compose
 ```
 
 
-## Install NGINX (lndg prerequisite)
+## Install NGINX (LNDg prerequisite)
 
 ```
 $ sudo apt install nginx
@@ -503,7 +503,7 @@ Deploy your docker image:
 ```
 sudo docker-compose up -d
 ```
-LNDg should now be available on port 8889 with your reserved ip at http://ReserveIP:8889
+LNDg should now be available on port 8889 with your reserved ip at `http://ReserveIP:8889`
 
 Open and copy the password from output file: 
 '''
@@ -526,7 +526,7 @@ Reminder to allow ufw firewall to port 8889 and allow traffic for your home IP
 # Balance of Satoshi
 Prerequisite - Node V18+ [Here](https://github.com/jtymoszczuk/neutrino-guide#install-node-nosft-prerequisite)
 
-Source of install - https://plebnet.wiki/wiki/Umbrel_-_Installing_BoS
+[Install Source](https://plebnet.wiki/wiki/Umbrel_-_Installing_BoS)
 ```
 curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt-get install -y nodejs
@@ -551,7 +551,8 @@ Install Balance of Satoshi. This command can be used to upgrade it as well.
 npm i -g balanceofsatoshis
 ```
 # Installing Telegram Bot for BOS
-source - [Here](https://github.com/ziggie1984/miscellanous/blob/97c4905747fe23a824b6e53dc674c4a571ac0f5c/automation_telegram_bot.md#adding-bos-telegram-bot-to-your-startup-scripts)
+
+[Install Source](https://github.com/ziggie1984/miscellanous/blob/97c4905747fe23a824b6e53dc674c4a571ac0f5c/automation_telegram_bot.md#adding-bos-telegram-bot-to-your-startup-scripts)
 
 Go to Telegram Start chat with @BotFather press `/start /newbot` Decide A bot name NodeAliasNew Decide a bot user name for telegram BotName_bot
 
@@ -560,7 +561,7 @@ BotFather will give you a link to your new bot, click on it and it will take you
 
 Now come back to your node
 
-Login via ssh as admin: ssh joe@raspibolt.local
+Login via ssh as user joe
 
 Change to the following directory: `cd /etc/systemd/system/`
 

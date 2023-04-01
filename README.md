@@ -1,17 +1,18 @@
 # A dedicated Neutrino guide:
-This is a dedicated guide to help with spin up a Neutrino node with lnd 0.16.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. This will give you options to add support for:
+This is a dedicated guide to help quickly spin up a Neutrino node with lnd 0.16.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. This guide will give you options to add more tools:
 + Watchtower support
 - NOSFT locally (prerequisites: Node v18+)
 * LNDg (prerequisites: NGNIX, Docker)
-- Balance of Satoshi (BOS) with  Telegram bot and static channel backup (SCB)
+- Balance of Satoshi (BOS) with  Telegram bot and static channel backup (SCB) (prerequisites: Node v18+)
 - More to come :)
 
+Common benefits of running neutrino is it lightweight and cheap to get started. it is commonly used as a watchtower, a second node w/ a static clearnet IP like [this](https://github.com/TrezorHannes/Dual-LND-Hybrid-VPS), mobile and more.
 
-Simply copy/paste the commands below. The $ is used to show commands and don't copy anything in (parentheses). My user is joe. Anywhere you see joe, change it to your user. I stopped using $ for individual commands later since i like to copy paste a few lines at a time. 
+The $ is used to show commands and don't copy anything in (parentheses). My user is joe. Anywhere you see joe, change it to your user. I stopped using $ for individual commands later since i like to copy paste a few lines at a time. 
 
-This guide is based on the Raspibolt guide with some modifications for it to be a Neutrino node. If you need to know everything that is going on you can find the full guide here https://raspibolt.org/guide/lightning/lightning-client.html.
+This guide is based on the Raspibolt guide with some modifications for it to be a Neutrino node. If you need to know everything that is going on you can find the full guide here at [Raspibolt](https://raspibolt.org/guide/lightning/lightning-client.html).
 
-For added security features check out Raspibolt and Digital Ocean Guides.
+For added security features check out [Raspibolt](https://raspibolt.org/guide/raspberry-pi/security.html) and [Digital Ocean](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) Guides.
 
 ## Set up Cloud server
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=e22779be4678&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)

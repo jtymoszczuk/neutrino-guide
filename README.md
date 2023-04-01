@@ -344,7 +344,7 @@ leave $nmp run dev running.
 
 ### Run Nosft
 
-While terminal is open, enter in your browser: <your IP>:3000
+While terminal is open and running, enter in your browser: your "Reserved_IP:3000"
 
 ### if errors:
 A couple times a received some errors. Running this ended up helping. Any suggestions are welcomed.

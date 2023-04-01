@@ -1,12 +1,13 @@
 # A dedicated Neutrino guide:
-This is a guide to spin up a Neutrinno node with lnd 0.16.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. This will give you options to add supposrt for:
+This is a dedicated guide to help with spin up a Neutrino node with lnd 0.16.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. This will give you options to add support for:
 + Watchtower support
 - NOSFT locally (prerequisites: Node v18+)
 * LNDg (prerequisites: NGNIX, Docker)
+- Balance of Satoshi (BOS) with  Telegram bot and static channel back up (SCB)
 - More to come :)
 
 
-Simply copy/paste the commands below. The $ is used to show comamnds and dont copy anything in (parentheses). My user is joe. Anywhere you see joe, change it to your user. I stopped using $ for individual commands later since i like to copy paste a few lines at a time. 
+Simply copy/paste the commands below. The $ is used to show commands and don't copy anything in (parentheses). My user is joe. Anywhere you see joe, change it to your user. I stopped using $ for individual commands later since i like to copy paste a few lines at a time. 
 
 This guide is based on the Raspibolt guide with some modifications for it to be a Neutrino node. If you need to know everything that is going on you can find the full guide here https://raspibolt.org/guide/lightning/lightning-client.html.
 
@@ -15,7 +16,7 @@ For added security features check out Raspibolt and Digital Ocean Guides.
 ## Set up Cloud server
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=e22779be4678&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 
-We will spin up the node using Digidal Ocean and create a droplet. 
+We will spin up the node using Digital Ocean and create a droplet. 
 Use my referral link https://m.do.co/c/e22779be4678. You will get $200 in credits over a 60 day period. We will be using a $7/mos. Droplet. Then enable the Reserved IP for $5/mos.
 
 
@@ -128,6 +129,7 @@ debuglevel=info
 maxpendingchannels=5
 listen=localhost
 externalip=XXX.XX.XXX.XXX 
+maxbackoff=20s
 
 # Password: automatically unlock wallet with the password in this file
 # -- comment out to manually unlock wallet, and see RaspiBolt guide for more secure options
@@ -185,8 +187,6 @@ bitcoin.node=neutrino
 neutrino.addpeer=btcd-mainnet.lightning.computer
 neutrino.addpeer=mainnet1-btcd.zaphq.io
 neutrino.addpeer=mainnet2-btcd.zaphq.io
-neutrino.addpeer=mainnet3-btcd.zaphq.io
-neutrino.addpeer=mainnet4-btcd.zaphq.io
 neutrino.addpeer=lnd.bitrefill.com:18333
 neutrino.addpeer=faucet.lightning.community
 neutrino.feeurl=https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json
@@ -323,7 +323,7 @@ lncli getinfo
 
 # Optional: Install NOSFT!
 
-### Install Node (Nosft prerequisite)
+### Install Node (Nosft & BOS prerequisite)
 ```
 curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
@@ -518,9 +518,78 @@ sudo docker-compose build --no-cache
 sudo docker-compose up -d
 ```
 ```
-# OPTIONAL: remove unused builds and objects
+## OPTIONAL: remove unused builds and objects
 sudo docker system prune -f
 ```
 Reminder to allow ufw firewall to port 8889 and allow traffic for your home IP
 
+# Balance of Satoshi
+Prerequisite - Node V18+ [Here](https://github.com/jtymoszczuk/neutrino-guide#install-node-nosft-prerequisite)
 
+Source of install - https://plebnet.wiki/wiki/Umbrel_-_Installing_BoS
+```
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install -y nodejs
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+```
+Update path and add new line to the end
+```
+nano ~/.profile
+```
+```
+PATH="$HOME/.npm-global/bin:$PATH"
+```
+Save and exit (ctrl + x) 
+
+Update shell
+```
+. ~/.profile
+```
+Install Balance of Satoshi. This command can be used to upgrade it as well.
+```
+npm i -g balanceofsatoshis
+```
+# Installing Telegram Bot for BOS
+source - [Here](https://github.com/ziggie1984/miscellanous/blob/97c4905747fe23a824b6e53dc674c4a571ac0f5c/automation_telegram_bot.md#adding-bos-telegram-bot-to-your-startup-scripts)
+
+Go to Telegram Start chat with @BotFather press `/start /newbot` Decide A bot name NodeAliasNew Decide a bot user name for telegram BotName_bot
+
+You will get a long alphanumeric API KEY for the bot, Note that. You can always retrieve it using `/mybot` with BotFather
+BotFather will give you a link to your new bot, click on it and it will take you to your bot.
+
+Now come back to your node
+
+Login via ssh as admin: ssh joe@raspibolt.local
+
+Change to the following directory: `cd /etc/systemd/system/`
+
+create a so called unit-file: `sudo touch bos-telegram.service`
+
+open file with: `sudo nano bos-telegram.service`
+
+copy the following content into it, change VERBINDUNGSCODE with your own code:
+```
+# /etc/systemd/system/bos-telegram.service
+
+[Unit]
+Description=bos-telegram
+Wants=lnd.service
+After=lnd.service
+
+
+[Service] 
+ExecStart=/home/bos/.npm-global/bin/bos telegram --connect VERBINDUNGSCODE
+User=bos
+Restart=always
+TimeoutSec=120
+RestartSec=30
+StandardOutput=null
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target 
+```
+save file and then type the following command in the terminal: `sudo systemctl enable bos-telegram.service`
+reboot your node `sudo reboot`
+wait until your telegram bot shows the new connection to check whether the service is running properly you can type: `sudo systemctl status  bos-telegram.service`

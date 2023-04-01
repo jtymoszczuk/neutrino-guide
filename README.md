@@ -360,14 +360,167 @@ npm run dev
 
 # Optional: Install LNDg
 
-### Install Docker (lndg prerequisite)
+## Install Docker (lndg prerequisite)
+Install Docker install (for LNDG) Set up and install Docker Engine from Docker’s apt repository. https://docs.docker.com/engine/install/ubuntu/
 
-### Install NGINX (lndg prerequisite)
+### Set up the repository
+1. Update the apt package index and install packages to allow apt to use a repository over HTTPS:
+```
+sudo apt-get update
+```
+```
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg
+```
 
-### Install LNDg from repo using docker
+2. Add Docker’s official GPG key:
+```
+sudo mkdir -m 0755 -p /etc/apt/keyrings
+```
+```
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+
+3. Use the following command to set up the repository:
+```
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+Install Docker Engine
+1. Update the apt package index:
+```
+sudo apt-get update
+```
+2. Install Docker Engine, containerd, and Docker Compose.
+    1. To install the latest version, run:
+```
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+3. Verify that the Docker Engine installation is successful by running the hello-world image:
+
+```
+sudo docker run hello-world
+```
+
+
+### Install Docker compose
+
+```
+sudo apt  install docker-compose
+```
+
+
+## Install NGINX (lndg prerequisite)
+
+```
+$ sudo apt install nginx
+```
+
+Create a self-signed SSL/TLS certificate (valid for 10 years)
+
+```
+$ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/CN=localhost" -days 3650
+```
+
+NGINX is also a full webserver. To use it only as a reverse proxy, remove the default configuration and paste the following configuration into the nginx.conf file.
+
+```
+$ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+```
+```
+$ sudo nano /etc/nginx/nginx.conf
+```
+
+```
+user www-data;
+worker_processes 1;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+  worker_connections 768;
+}
+
+stream {
+  ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+  ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+  ssl_session_cache shared:SSL:1m;
+  ssl_session_timeout 4h;
+  ssl_protocols TLSv1.2 TLSv1.3;
+  ssl_prefer_server_ciphers on;
+
+  include /etc/nginx/streams-enabled/*.conf;
+
+}
+```
+Create a new directory for future configuration files
+
+```
+$ sudo mkdir /etc/nginx/streams-enabled
+```
+
+Test this barebone NGINX configuration
+
+```
+$ sudo nginx -t
+```
+> nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+> nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 
 
+## Install LNDg from repo using docker
+https://github.com/cryptosharks131/lndg#docker-installation-requires-docker-and-docker-compose-be-installed
 
+```
+git clone https://github.com/cryptosharks131/lndg.git
+cd lndg
+```
+Copy and replace the contents (adjust custom volume paths and user "joe" to LND and LNDg folders) of the docker-compose.yaml with the below
+```
+nano docker-compose.yaml
+```
+```
+services:
+  lndg:
+    build: .
+    volumes:
+      - /home/joe/.lnd:/root/.lnd:ro
+      - /home/joe/lndg/data:/lndg/data:rw
+    command:
+      - sh
+      - -c
+      - python initialize.py -net 'mainnet' -server '127.0.0.1:10009' -d && supervisord && python manage.py runserver 0.0.0.0:8889
+    network_mode: "host"
+```
+
+Deploy your docker image: 
+```
+sudo docker-compose up -d
+```
+LNDg should now be available on port 8889 with your reserved ip at http://ReserveIP:8889
+
+Open and copy the password from output file: 
+'''
+nano data/lndg-admin.txt
+'''
+Use the password from the output file and the username '''lndg-admin''' to login
+
+### Updating
+```
+sudo docker-compose down
+sudo docker-compose build --no-cache
+sudo docker-compose up -d
+```
+```
+# OPTIONAL: remove unused builds and objects
+sudo docker system prune -f
+```
+Reminder to allow ufw firewall to port 8889 and allow traffic for your home IP
 
 

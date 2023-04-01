@@ -84,14 +84,13 @@ lnd --version
 ```
 
 ## Data Directory
+Used -p creates the parent directory also `$ sudo chown joe:joe /data` if needed.
 ```
 sudo adduser --disabled-password --gecos "" lnd
 
-sudo usermod -a -G bitcoin,debian-tor lnd (not needed for neutrino)
-
 sudo adduser joe lnd
 
-sudo mkdir -p /data/lnd  (-p creates the parent directory also $ sudo chown joe:joe /data if needed)
+sudo mkdir -p /data/lnd  
 
 sudo chown -R lnd:lnd /data/lnd
 
@@ -103,15 +102,17 @@ ln -s /data/bitcoin /home/lnd/.bitcoin
 ```
 
 ### Create LND wallet password (Nano is text editor, control x to exit nano)
+As user “lnd”, create a text file and enter your LND wallet password. Save and exit (ctrl C)
+
 ```
-nano /data/lnd/password.txt  (Save this password) (remember this pw for wallet creation)
+nano /data/lnd/password.txt
 
 chmod 600 /data/lnd/password.txt 
 ```
 
 ## Configuration 
 
-Create the LND configuration file and paste the following content below. Make sure to replace XXX.XXX.XXX.XXX with your **_Reserved IP_** to `externalip=` and change `alias=` to your liking. For WatchTower Support remove # from `Watchtower` and `wtclient.active=true`
+Create the LND configuration file and paste the following content below. Make sure to replace XXX.XXX.XXX.XXX with your **_Reserved IP_** to `externalip=` and change `alias=` to your liking. ***Optional*** for WatchTower Support remove # from `Watchtower` and `wtclient.active=true`
 
 ```
 nano /data/lnd/lnd.conf

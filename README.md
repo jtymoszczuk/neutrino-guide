@@ -150,9 +150,9 @@ bitcoin.feerate=1
 minchansize=100000
 accept-keysend=true
 accept-amp=true
-protocol.wumbo-channels=true
+#protocol.wumbo-channels=true
 protocol.no-anchors=false
-coop-close-target-confs=24
+coop-close-target-confs=240
 
 # Watchtower
 #wtclient.active=true
@@ -162,7 +162,8 @@ gc-canceled-invoices-on-startup=true
 gc-canceled-invoices-on-the-fly=true
 ignore-historical-gossip-filters=1
 stagger-initial-reconnect=true
-routing.strictgraphpruning=true
+#routing.strictgraphpruning=true
+#marks too many channels as zombie channels
 
 # Database
 [bolt]
@@ -199,15 +200,15 @@ neutrino.validatechannels=false
 lnd
 ```
 
-Open a second terminal and keep lnd running in the first 
+Open a second terminal and keep lnd running in the first terminal session running with lnd.
 Commands for the second session start with the prompt $2 (which must not be entered).
 
 ```
 $2 sudo su - lnd
 ```
-
+You will enter the password that matches `nano /data/lnd/password.txt` after `lncli create' then type “n”, enter, enter
 ```
-$2 lncli create (enter password that matches nano /data/lnd/password.txt)  then type “n”, enter, enter)
+$2 lncli create 
 ```
 You will be given your seed. save in a safe and secure place.
 
@@ -223,18 +224,16 @@ You will be given your seed. save in a safe and secure place.
 
 !!!YOU MUST WRITE DOWN THIS SEED TO BE ABLE TO RESTORE THE WALLET!!!
 
+-> Close out of second LND session
 ```
 $2 exit
 ```
-->Close out of second LND session
 
-Back in your first SSH session with user “lnd”, LND is still running. Stop LND with Ctrl-C.
-
-(check if the wallet is unlocked automatically)
+Back in your first SSH session where LND is still running Stop LND with Ctrl-C. As user “lnd” check if the wallet is unlocked automatically.
 ```
 lnd
 ```
-You will see something like this:
+You will see something like this near the top:
 
 [INF] LNWL: The wallet has been unlocked without a time limit
 

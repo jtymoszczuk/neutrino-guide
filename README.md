@@ -240,7 +240,7 @@ You will see something like this near the top:
 
 [INF] CHRE: LightningWallet opened
 
-## Create LND systemd unit with the following content. Save and exit. Back to Joe user. Enter “exit” if your still in user LND
+### Create LND systemd unit with the following content. Save and exit. Back to Joe user. Enter “exit” if your still in user LND
 ```
 sudo nano /etc/systemd/system/lnd.service
 ```
@@ -362,7 +362,7 @@ npm run dev
 # Optional: Install LNDg
 
 ## Install Docker (LNDg prerequisite)
-Install Docker install (for LNDG) Set up and install Docker Engine from Docker’s apt repository. https://docs.docker.com/engine/install/ubuntu/
+Install Docker (for LNDG). Set up and install Docker Engine from [Docker’s apt repository](https://docs.docker.com/engine/install/ubuntu/).
 
 ### Set up the repository
 1. Update the apt package index and install packages to allow apt to use a repository over HTTPS:
@@ -417,6 +417,7 @@ sudo apt  install docker-compose
 
 
 ## Install NGINX (LNDg prerequisite)
+[Install Source](https://raspibolt.org/guide/raspberry-pi/security.html#prepare-nginx-reverse-proxyd)
 
 ```
 $ sudo apt install nginx
@@ -476,7 +477,7 @@ $ sudo nginx -t
 
 
 ## Install LNDg from repo using docker
-https://github.com/cryptosharks131/lndg#docker-installation-requires-docker-and-docker-compose-be-installed
+[Install Source](https://github.com/cryptosharks131/lndg#docker-installation-requires-docker-and-docker-compose-be-installed)
 
 ```
 git clone https://github.com/cryptosharks131/lndg.git
@@ -524,7 +525,7 @@ sudo docker system prune -f
 ```
 Reminder to allow ufw firewall to port 8889 and allow traffic for your home IP
 
-# Balance of Satoshi
+# Optional: Balance of Satoshi
 Prerequisite - Node V18+ [Here](https://github.com/jtymoszczuk/neutrino-guide#install-node-nosft-prerequisite)
 
 [Install Source](https://plebnet.wiki/wiki/Umbrel_-_Installing_BoS)

@@ -1,21 +1,25 @@
 # A dedicated Neutrino guide:
-This is a guide to spin up a Neutrinno node with lnd 0.16.0-Beta. This will give you options to add supposrt for:
--NOSFT locally (prerequisite node v18+)
--LNDg (prerequisite Docker)
--Watchtower support
--thats all i can think of right now :)
+This is a guide to spin up a Neutrinno node with lnd 0.16.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. This will give you options to add supposrt for:
++ Watchtower support
+- NOSFT locally (prerequisites: Node v18+)
+* LNDg (prerequisites: NGNIX, Docker)
+- More to come :)
 
-I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node.
 
-Simply copy plaste the commands below. The $ is used to show comamnds and dont copy anything in (parentheses). My user is joe. Anywhere you see joe, change it to your user. I stopped using $ for individual commands later since i like to copy paste a few lines at a time. 
+Simply copy/paste the commands below. The $ is used to show comamnds and dont copy anything in (parentheses). My user is joe. Anywhere you see joe, change it to your user. I stopped using $ for individual commands later since i like to copy paste a few lines at a time. 
 
 This guide is based on the Raspibolt guide with some modifications for it to be a Neutrino node. If you need to know everything that is going on you can find the full guide here https://raspibolt.org/guide/lightning/lightning-client.html.
 
 For added security features check out Raspibolt and Digital Ocean Guides.
 
 ## Set up Cloud server
+[![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=e22779be4678&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
+
 We will spin up the node using Digidal Ocean and create a droplet. 
 Use my referral link https://m.do.co/c/e22779be4678. You will get $200 in credits over a 60 day period. We will be using a $7/mos. Droplet. Then enable the Reserved IP for $5/mos.
+
+
+
 
 ## Set up user
 ```
@@ -33,7 +37,7 @@ $ ufw allow OpenSSH
 $ sudo ufw allow 3000/tcp comment ‘nosft’
 
 ->Optional: allow for lndg
-sudo ufw allow 8889/tcp comment 'allow LNDg SSL'
+$ sudo ufw allow 8889/tcp comment 'allow LNDg SSL'
 
 ->Required: allow an IP address
 $ sudo ufw allow from xxx.xx.xxx.xxx (Replace xxx.xx.xxx.xxx w/your home IP, google what’s my ip)
@@ -98,20 +102,20 @@ ln -s /data/lnd /home/lnd/.lnd
 ln -s /data/bitcoin /home/lnd/.bitcoin
 ```
 
-## Create LND wallet password (Nano is text editor, control x to exit nano)
+### Create LND wallet password (Nano is text editor, control x to exit nano)
 ```
 nano /data/lnd/password.txt  (Save this password) (remember this pw for wallet creation)
 
 chmod 600 /data/lnd/password.txt 
 ```
 
-## Create the lnd.conf file
+## Configuration 
+
+Create the LND configuration file and paste the following content below. Make sure to replace XXX.XXX.XXX.XXX with your **_Reserved IP_** to `externalip=` and change `alias=` to your liking. For WatchTower Support remove # from `Watchtower` and `wtclient.active=true`
 
 ```
 nano /data/lnd/lnd.conf
 ```
-
-## Copy/paste the below and make sure to replace XXX.XXX.XXX.XXX with your  RESERVED IP to externalip=
 
 ```
 # RaspiBolt: lnd configuration
@@ -147,7 +151,6 @@ protocol.wumbo-channels=true
 protocol.no-anchors=false
 coop-close-target-confs=24
 
-#comment out with #
 # Watchtower
 #wtclient.active=true
 
@@ -204,10 +207,11 @@ $2 sudo su - lnd
 ```
 $2 lncli create (enter password that matches nano /data/lnd/password.txt)  then type “n”, enter, enter)
 ```
+You will be given your seed. save in a safe and secure place.
 
 ---------------BEGIN LND CIPHER SEED---------------
- 1. this      2. is   3. your      4. seed 
- 5. word    6. you    7. should    8. save   
+ 1. These      2. are   3. your      4. seed 
+ 5. words    6. you    7. should    8. save   
  9. them      10. somewhere   11. safe  12. especially 
 13. if     14. your  15. are   16. going    
 17. to       18. have  19. funds    20. on 
@@ -229,14 +233,16 @@ Back in your first SSH session with user “lnd”, LND is still running. Stop L
 lnd
 ```
 You will see something like this:
+
 [INF] LNWL: The wallet has been unlocked without a time limit
+
 [INF] CHRE: LightningWallet opened
 
-## Run LND in Systemd (Back to Joe user) enter “exit” if your still in user LND
+## Create LND systemd unit with the following content. Save and exit. Back to Joe user. Enter “exit” if your still in user LND
 ```
 sudo nano /etc/systemd/system/lnd.service
 ```
-## Copy past the below into the lnd.service 
+
 ```
 # RaspiBolt: systemd unit for lnd
 # /etc/systemd/system/lnd.service
@@ -298,7 +304,7 @@ sudo systemctl enable lnd
 sudo systemctl start lnd
 systemctl status lnd
 ```
-->make sure it shows enabled in green
+->make sure it shows enabled in green. Then reboot.
 
 ```
 sudo reboot
@@ -314,7 +320,9 @@ After your up and running for a couple minutes you should see a couple peers con
 lncli getinfo
 ```
 
-## install node
+# Optional: Install NOSFT!
+
+### Install Node (Nosft prerequisite)
 ```
 curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
@@ -322,9 +330,9 @@ sudo apt-get update
 node -v
 npm -v
 ```
-you should be running node-> v18.15.0 and npm-> 9.6.3.
+You should be running node-> v18.15.0 and npm-> 9.6.3.
 
-## Install NOSFT!
+### Install Nosft repo:
 ```
 git clone https://github.com/dannydeezy/nosft.git 
 cd nosft
@@ -333,14 +341,12 @@ npm run dev
 ```
 leave $nmp run dev running.
 
-## Run Nosft
+### Run Nosft
 
 While terminal is open, enter in your browser: <your IP>:3000
 
-
-
-## if errors:
-I did get some errors so running this ended up helping. im not sure why if anyone has suggestions.
+### if errors:
+A couple times a received some errors. Running this ended up helping. Any suggestions are welcomed.
 ```
 rm -rf nosft
 npm cache clean --force
@@ -351,16 +357,13 @@ npm install
 npm run dev
 ```
 
+# Optional: Install LNDg
 
+### Install Docker (lndg prerequisite)
 
+### Install NGINX (lndg prerequisite)
 
-
-
-
-
-
-
-
+### Install LNDg from repo using docker
 
 
 

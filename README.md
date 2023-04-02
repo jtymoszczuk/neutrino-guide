@@ -6,11 +6,11 @@ This is a dedicated guide to help quickly spin up a Neutrino node with lnd 0.16.
 - Balance of Satoshi (BOS) with  Telegram bot and static channel backup (SCB) (prerequisites: Node v18+)
 - More to come :)
 
-Common benefits of running neutrino is it lightweight and cheap to get started. it is commonly used as a watchtower, a second node w/ a static clearnet IP like [this](https://github.com/TrezorHannes/Dual-LND-Hybrid-VPS), mobile and more.
+### Why neutrino:
+Neutrino is a great way to familiarize yourself with bitcoin. Since it is self-custody you will be responsible for your keys (mnemonic seed). It's quick and cheap to get started, making it ideal for testing. If you run a full node it is commonly used as a watchtower or used for its static clearnet IP in [hybrid mode](https://github.com/TrezorHannes/Dual-LND-Hybrid-VPS). It has also been a primary driver for mobile applications. Check out [Neutrino](https://river.com/learn/terms/n/neutrino/) for more info.
 
-The $ is used to show commands and don't copy anything in (parentheses). My user is joe. Anywhere you see joe, change it to your user. I stopped using $ for individual commands later since i like to copy paste a few lines at a time. 
-
-This guide is based on the Raspibolt guide with some modifications for it to be a Neutrino node. If you need to know everything that is going on you can find the full guide here at [Raspibolt](https://raspibolt.org/guide/lightning/lightning-client.html).
+### The guide:
+This guide is based on the Raspibolt guide with some modifications for it to be a Neutrino node. If you need to know everything that is going on you can find the full guide here at [Raspibolt](https://raspibolt.org/guide/lightning/lightning-client.html). The $ is used to show commands and don't copy anything in (parentheses). My user is joe. Anywhere you see joe, change it to your user. I stopped using $ for individual commands later since i like to copy paste a few lines to save on time. 
 
 For added security features check out [Raspibolt](https://raspibolt.org/guide/raspberry-pi/security.html) and [Digital Ocean](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) Guides.
 
@@ -19,9 +19,6 @@ For added security features check out [Raspibolt](https://raspibolt.org/guide/ra
 
 We will spin up the node using Digital Ocean and create a droplet. 
 Use my [referral link here](https://m.do.co/c/e22779be4678). You will get $200 in credits over a 60 day period. We will be using a $7/mos. Droplet. Then enable the Reserved IP for $5/mos.
-
-
-
 
 ## Set up user
 ```

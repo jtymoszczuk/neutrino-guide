@@ -64,7 +64,8 @@ sudo su - joe
 cd /tmp
 
 sudo apt install ots
-
+``
+``
 wget https://github.com/lightningnetwork/lnd/releases/download/v0.16.0-beta/lnd-linux-amd64-v0.16.0-beta.tar.gz
 
 wget https://github.com/lightningnetwork/lnd/releases/download/v0.16.0-beta/manifest-v0.16.0-beta.txt

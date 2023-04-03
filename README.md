@@ -558,9 +558,15 @@ Go to Telegram Start chat with @BotFather press `/start /newbot` Decide A bot na
 You will get a long alphanumeric API KEY for the bot, Note that. You can always retrieve it using `/mybot` with BotFather
 BotFather will give you a link to your new bot, click on it and it will take you to your bot.
 
-Now come back to your node
+Now come back to your node. On your SSH session run: bos telegram at first prompt type API key (alpha numeric) received from BotFather.
 
-Login via ssh as user joe
+In Telegram go to your bot by clicking on the link provided in BotFather. Then press Start. Type /connect. You will get a numeric key, type that numeric key on the second prompt in your ssh session with bos telegram.
+
+You should get a connected message in your Telegram Bot as well as on SSH session.
+
+Verify by typing /version in your telegram bot and you should see the version number of bos. If you have issues or have installed the telegram bot before you might have to remove the old api key in the by `nano /home/joe/.bos/telegram_bot_api_key`
+
+To run Telegram bot in backgound login via ssh as user joe.
 
 Change to the following directory: `cd /etc/systemd/system/`
 
@@ -579,7 +585,7 @@ After=lnd.service
 
 
 [Service] 
-ExecStart=/home/bos/.npm-global/bin/bos telegram --connect VERBINDUNGSCODE
+ExecStart=/home/bos/.npm-global/bin/bos telegram --use-small-units --connect VERBINDUNGSCODE
 User=bos
 Restart=always
 TimeoutSec=120
@@ -592,4 +598,4 @@ WantedBy=multi-user.target
 ```
 save file and then type the following command in the terminal: `sudo systemctl enable bos-telegram.service`
 reboot your node `sudo reboot`
-wait until your telegram bot shows the new connection to check whether the service is running properly you can type: `sudo systemctl status  bos-telegram.service`
+wait until your telegram bot shows the new connection to check whether the service is running properly you can type: `sudo systemctl status  bos-telegram.service`. For more Telegram commands check out [Raspibolt guide](https://raspibolt.org/guide/bonus/lightning/balance-of-satoshis.html#optional-connect-your-node-to-a-telegram-bot)

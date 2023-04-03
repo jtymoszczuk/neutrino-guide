@@ -596,6 +596,8 @@ StandardError=journal
 [Install]
 WantedBy=multi-user.target 
 ```
-save file and then type the following command in the terminal: `sudo systemctl enable bos-telegram.service`
-reboot your node `sudo reboot`
-wait until your telegram bot shows the new connection to check whether the service is running properly you can type: `sudo systemctl status  bos-telegram.service`. For more Telegram commands check out [Raspibolt guide](https://raspibolt.org/guide/bonus/lightning/balance-of-satoshis.html#optional-connect-your-node-to-a-telegram-bot)
+Save file and then type the following command in the terminal: `sudo systemctl enable bos-telegram.service`
+
+Reboot your node `sudo reboot`
+
+Wait until your telegram bot shows the new connection to check whether the service is running properly you can type: `sudo systemctl status bos-telegram.service`. For more Telegram commands check out [Raspibolt guide for Telegram](https://raspibolt.org/guide/bonus/lightning/balance-of-satoshis.html#optional-connect-your-node-to-a-telegram-bot)

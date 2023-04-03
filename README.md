@@ -20,6 +20,15 @@ For added security features check out [Raspibolt](https://raspibolt.org/guide/ra
 We will spin up the node using Digital Ocean and create a droplet. 
 Use my [referral link here](https://m.do.co/c/e22779be4678). You will get $200 in credits over a 60 day period. We will be using a $7/mos. Droplet. Then enable the Reserved IP for $5/mos.
 
+1. Create a project
+2. Click "Create" under drop down click -> "Droplet"
+3. For Region choose one close to you; Choose Ubuntu for Image; Choose Basic; Select the cheapest droplet $6 - $7.
+4. Under "HostName" name your Droplet
+5. Create password or SSH keys
+6. "Create Droplet"
+7. Click on your droplet once it loads. Next to Reserved IP click `Enable now` and assign it.
+8. Click your droplets name to get back to it. Then click "Access" then click "Launch Droplet console"
+
 ## Set up user
 ```
 $ adduser joe (Save pw)

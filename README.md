@@ -1,9 +1,9 @@
 # A dedicated Neutrino guide:
 This is a dedicated guide to help quickly spin up a Neutrino node with lnd 0.16.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. This guide will give you options to add more tools:
 + Watchtower support
-- NOSFT locally (prerequisites: Node v18+)
-* LNDg (prerequisites: NGNIX, Docker)
-- Balance of Satoshi (BOS) with  Telegram bot and static channel backup (SCB) (prerequisites: Node v18+)
+- [NOSFT locally](https://github.com/jtymoszczuk/neutrino-guide#optional-install-nosft) (prerequisites: Node v18+)
+* [LNDg](https://github.com/jtymoszczuk/neutrino-guide#optional-install-lndg) (prerequisites: NGNIX, Docker)
+- [Balance of Satoshi (BOS)](https://github.com/jtymoszczuk/neutrino-guide#optional-balance-of-satoshi) with  Telegram bot and static channel backup (SCB) (prerequisites: Node v18+)
 - More to come :)
 
 ### Why neutrino:

@@ -1,6 +1,6 @@
 # A dedicated Neutrino guide:
 This is a dedicated guide to help quickly spin up a Neutrino node with lnd 0.16.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. This guide will give you options to add more tools:
-+ Watchtower support
++ [Watchtower](https://github.com/jtymoszczuk/neutrino-guide#configuration) support
 - [NOSFT locally](https://github.com/jtymoszczuk/neutrino-guide#optional-install-nosft) (prerequisites: Node v18+)
 * [LNDg](https://github.com/jtymoszczuk/neutrino-guide#optional-install-lndg) (prerequisites: NGNIX, Docker)
 - [Balance of Satoshi (BOS)](https://github.com/jtymoszczuk/neutrino-guide#optional-balance-of-satoshi) with  Telegram bot and static channel backup (SCB) (prerequisites: Node v18+)
@@ -111,7 +111,7 @@ chmod 600 /data/lnd/password.txt
 
 ## Configuration 
 
-Create the LND configuration file and paste the following content below. Make sure to replace XXX.XXX.XXX.XXX with your **_Reserved IP_** to `externalip=` and change `alias=` to your liking. ***Optional*** for [WatchTower](https://raspibolt.org/guide/lightning/lightning-client.html#adding-watchtowers) Support remove # from `Watchtower` and `wtclient.active=true`
+Create the LND configuration file and paste the following content below. Make sure to replace XXX.XXX.XXX.XXX with your **_Reserved IP_** to `externalip=` and change `alias=` to your liking. ***Optional*** for watchtower support remove # from `Watchtower` and `wtclient.active=true`. more info at the [Raspibolt WatchTower guide](https://raspibolt.org/guide/lightning/lightning-client.html#adding-watchtowers)
 
 ```
 nano /data/lnd/lnd.conf

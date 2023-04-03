@@ -64,8 +64,8 @@ sudo su - joe
 cd /tmp
 
 sudo apt install ots
-``
-``
+```
+```
 wget https://github.com/lightningnetwork/lnd/releases/download/v0.16.0-beta/lnd-linux-amd64-v0.16.0-beta.tar.gz
 
 wget https://github.com/lightningnetwork/lnd/releases/download/v0.16.0-beta/manifest-v0.16.0-beta.txt
@@ -115,10 +115,11 @@ As user “lnd”, create a text file and enter your LND wallet password. Save a
 
 ```
 nano /data/lnd/password.txt
-
+```
+Tighten access privileges and make the file readable only for user “lnd”
+```
 chmod 600 /data/lnd/password.txt 
 ```
-
 ## Configuration 
 
 Create the LND configuration file and paste the following content below. Make sure to replace `XXX.XXX.XXX.XXX` with your **_Reserved IP_** to `externalip=` and change `alias=` to your liking. ***Optional*** for watchtower support remove # from `Watchtower` and `wtclient.active=true`. more info at the [Raspibolt WatchTower guide](https://raspibolt.org/guide/lightning/lightning-client.html#adding-watchtowers)

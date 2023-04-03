@@ -111,7 +111,7 @@ chmod 600 /data/lnd/password.txt
 
 ## Configuration 
 
-Create the LND configuration file and paste the following content below. Make sure to replace XXX.XXX.XXX.XXX with your **_Reserved IP_** to `externalip=` and change `alias=` to your liking. ***Optional*** for watchtower support remove # from `Watchtower` and `wtclient.active=true`. more info at the [Raspibolt WatchTower guide](https://raspibolt.org/guide/lightning/lightning-client.html#adding-watchtowers)
+Create the LND configuration file and paste the following content below. Make sure to replace `XXX.XXX.XXX.XXX` with your **_Reserved IP_** to `externalip=` and change `alias=` to your liking. ***Optional*** for watchtower support remove # from `Watchtower` and `wtclient.active=true`. more info at the [Raspibolt WatchTower guide](https://raspibolt.org/guide/lightning/lightning-client.html#adding-watchtowers)
 
 ```
 nano /data/lnd/lnd.conf

@@ -1,16 +1,16 @@
-# A dedicated Neutrino guide:
-This is a dedicated guide to help quickly spin up a Neutrino node with lnd 0.16.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. This guide will give you options to add more tools:
+# A Dedicated Neutrino Guide: ⚡️
+This is a dedicated guide to help quickly spin up a Neutrino node with lnd 0.16.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. Its a WIP 👷🏻‍♂️. This guide will give you options to add more tools:
 + [Watchtower](https://github.com/jtymoszczuk/neutrino-guide#configuration) support
 - [NOSFT locally](https://github.com/jtymoszczuk/neutrino-guide#optional-install-nosft) (prerequisites: Node v18+)
 * [LNDg](https://github.com/jtymoszczuk/neutrino-guide#optional-install-lndg) (prerequisites: NGNIX, Docker)
 - [Balance of Satoshi (BOS)](https://github.com/jtymoszczuk/neutrino-guide#optional-balance-of-satoshi) with  Telegram bot and static channel backup (SCB) (prerequisites: Node v18+)
-- More to come :)
+- More to come 🚀
 
 ### Why neutrino:
 Neutrino is a great way to familiarize yourself with bitcoin. Since it is self-custody you will be responsible for your keys (mnemonic seed). It's quick and cheap to get started, making it ideal for testing. It's a great way to run Nosft locally. If you run a full node it is commonly used as a watchtower or used for its static clearnet IP in [hybrid mode](https://github.com/TrezorHannes/Dual-LND-Hybrid-VPS). It has also been a primary driver for mobile applications. Check out [Neutrino](https://river.com/learn/terms/n/neutrino/) for more info.
 
 ### The guide:
-This guide is based on the Raspibolt guide with some modifications for it to be a Neutrino node. This is a quick guide with little commentary and explaination. If you want to know everything that is going on you can find the full guide here at [Raspibolt](https://raspibolt.org/guide/lightning/lightning-client.html). The $ is used to show commands and don't copy anything in (parentheses). My user is joe. Anywhere you see joe, change it to your user. I stopped using $ for individual commands later since i like to copy paste a few lines to save on time. 
+This guide is based on the Raspibolt guide with some modifications for it to be a Neutrino node. This is a quick guide with little commentary and explaination. If you want to know everything that is going on you can find the full guide here at [Raspibolt](https://raspibolt.org/guide/lightning/lightning-client.html).  My user is joe. Anywhere you see joe, change it to your user. Don't copy anything in (parentheses) or the $ you see in the begining of some commands. I left out $ signs in some parts so i can copy the `blocks` faster ⚡️.
 
 For added security features check out [Raspibolt](https://raspibolt.org/guide/raspberry-pi/security.html) and [Digital Ocean](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) Guides.
 
@@ -36,22 +36,25 @@ $ usermod -aG sudo joe (enter thru, no need to enter info)
 $ rsync --archive --chown=joe:joe ~/.ssh /home/joe
 ```
 ## Set up basic firewall (UFW) as root user
-
 ```
-$ ufw app list
-$ ufw allow OpenSSH
+ufw app list
+ufw allow OpenSSH
+ufw enable
+ufw status
+sudo systemctl enable ufw
+```
+For LNDg, Nosft: allow home IP address (reminder dont copy the $, its there so you can stop to make edit).
+```
+$ sudo ufw allow from xxx.xx.xxx.xxx (Replace xxx.xx.xxx.xxx w/your home IP, google what’s my ip)
+```
 
 ->Optional: allow for nosft
-$ sudo ufw allow 3000/tcp comment ‘nosft’
-
+```
+sudo ufw allow 3000/tcp comment ‘nosft’
+```
 ->Optional: allow for lndg
-$ sudo ufw allow 8889/tcp comment 'allow LNDg SSL'
-
-->Required: allow an IP address
-$ sudo ufw allow from xxx.xx.xxx.xxx (Replace xxx.xx.xxx.xxx w/your home IP, google what’s my ip)
-$ ufw enable
-$ ufw status
-$ sudo systemctl enable ufw
+```
+sudo ufw allow 8889/tcp comment 'allow LNDg SSL'
 ```
 
 ## Verify and Install LND
@@ -93,13 +96,15 @@ lnd --version
 ```
 
 ## Data Directory
-Used -p creates the parent directory also `$ sudo chown joe:joe /data` if needed.
+Used -p creates the parent directory. Change joe to your user.
 ```
 sudo adduser --disabled-password --gecos "" lnd
 
 sudo adduser joe lnd
 
 sudo mkdir -p /data/lnd  
+
+sudo chown joe:joe /data
 
 sudo chown -R lnd:lnd /data/lnd
 

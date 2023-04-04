@@ -94,6 +94,7 @@ sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v0.16.0-b
 
 lnd --version
 ```
+-> lnd version 0.16.0-beta commit=v0.16.0-beta
 
 ## Data Directory
 Used -p creates the parent directory. Change joe to your user.
@@ -361,7 +362,7 @@ leave $nmp run dev running.
 While terminal is open and running, enter in your browser: your "Reserved_IP:3000"
 
 ### if errors:
-A couple times a received some errors. Running this ended up helping. Any suggestions are welcomed.
+A couple times I received some errors. Running this ended up helping.
 ```
 rm -rf nosft
 npm cache clean --force

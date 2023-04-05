@@ -256,10 +256,7 @@ You will see something like this near the top:
 
 [INF] CHRE: LightningWallet opened
 
-### Create LND systemd unit with the following content. Save and exit. Back to Joe user. Enter “exit” if your still in user LND.
-```
-sudo su - joe
-```
+### Create LND systemd unit with the following content. Save and exit. Back to Joe user. Enter `exit` if your still in user LND to get back to user joe.
 
 ```
 sudo nano /etc/systemd/system/lnd.service

@@ -108,7 +108,9 @@ sudo mkdir -p /data/lnd
 sudo chown joe:joe /data
 
 sudo chown -R lnd:lnd /data/lnd
-
+```
+Now as user lnd.
+```
 sudo su - lnd
 
 ln -s /data/lnd /home/lnd/.lnd
@@ -254,7 +256,11 @@ You will see something like this near the top:
 
 [INF] CHRE: LightningWallet opened
 
-### Create LND systemd unit with the following content. Save and exit. Back to Joe user. Enter “exit” if your still in user LND
+### Create LND systemd unit with the following content. Save and exit. Back to Joe user. Enter “exit” if your still in user LND.
+```
+sudo su - joe
+```
+
 ```
 sudo nano /etc/systemd/system/lnd.service
 ```

@@ -330,6 +330,7 @@ sudo reboot
 ```
 ## Create lncli commands
 ```
+sudo su - joe
 ln -s /data/lnd /home/joe/.lnd
 sudo chmod -R g+X /data/lnd/data/
 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon

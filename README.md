@@ -17,7 +17,7 @@ For added security features check out [Raspibolt](https://raspibolt.org/guide/ra
 ## Set up Cloud server
 [![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg)](https://www.digitalocean.com/?refcode=e22779be4678&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 
-We will spin up the node using Digital Ocean and create a droplet. You can use any cloud service you would like. Digital ocean seemeed to be the cheapest and easiest. 
+We will spin up the node using Digital Ocean and create a droplet. You can use any cloud service you would like. Digital Ocean seemed to be the cheapest and easiest. 
 Use my [referral link here](https://m.do.co/c/e22779be4678). You will get $200 in credits over a 60 day period. We will be using a $7/mos. Droplet. Then enable the Reserved IP for $5/mos.
 
 1. Create a project

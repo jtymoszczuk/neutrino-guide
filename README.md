@@ -1,8 +1,8 @@
 # A Dedicated Neutrino Guide: ⚡️
 This is a dedicated guide to help quickly spin up a Neutrino node with lnd 0.16.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. Its a WIP 👷🏻‍♂️. This guide will give you options to add more tools:
 + [Watchtower](https://github.com/jtymoszczuk/neutrino-guide#configuration) support
-- [NOSFT locally](https://github.com/jtymoszczuk/neutrino-guide#optional-install-nosft) (prerequisites: Node v18+)
-* [LNDg](https://github.com/jtymoszczuk/neutrino-guide#optional-install-lndg) (prerequisites: NGNIX, Docker)
+- [NOSFT locally](https://github.com/jtymoszczuk/neutrino-guide#optional-install-nosft) (prerequisites: [Node v18+](https://github.com/jtymoszczuk/neutrino-guide#install-node-nosft--bos-prerequisite))
+* [LNDg](https://github.com/jtymoszczuk/neutrino-guide#optional-install-lndg) (prerequisites: [NGNIX](https://github.com/jtymoszczuk/neutrino-guide#install-nginx-lndg-prerequisite), [Docker](https://github.com/jtymoszczuk/neutrino-guide#install-docker-lndg-prerequisite))
 - [Balance of Satoshi (BOS)](https://github.com/jtymoszczuk/neutrino-guide#optional-balance-of-satoshi) with  Telegram bot and static channel backup (SCB) (prerequisites: Node v18+)
 - More to come 🚀
 
@@ -373,8 +373,6 @@ npm run dev
 ```
 While terminal is open and running, enter in your browser: your "Reserved_IP:3000"
 
-# Optional: Install LNDg
-
 ## Install Docker (LNDg prerequisite)
 Install Docker (for LNDG). Set up and install Docker Engine from [Docker’s apt repository](https://docs.docker.com/engine/install/ubuntu/).
 
@@ -490,10 +488,11 @@ $ sudo nginx -t
 
 
 
-## Install LNDg from repo using docker
+# Optional: Install LNDg
 [Install Source](https://github.com/cryptosharks131/lndg#docker-installation-requires-docker-and-docker-compose-be-installed)
 
 ```
+# Install LNDg from repo using docker
 git clone https://github.com/cryptosharks131/lndg.git
 cd lndg
 ```

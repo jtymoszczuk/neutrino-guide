@@ -30,11 +30,11 @@ Use my [referral link here](https://m.do.co/c/e22779be4678). You will get $200 i
 8. Click your droplets name to get back to it. Then click "Access" then click "Launch Droplet console"
 
 ## Set up user
-```
+```shell
 # save password; change user joe to your user
 adduser joe
 ```
-```
+```shell
 # grant sudo permssions to user joe
 usermod -aG sudo joe
 
@@ -49,7 +49,7 @@ ufw status
 sudo systemctl enable ufw
 ```
 For LNDg and Nosft: allow home IP address to access the software through your browser.
-```
+```shell
 # Replace xxx.xx.xxx.xxx w/your home IP, google what’s my ip
 sudo ufw allow from xxx.xx.xxx.xxx
 ```
@@ -93,18 +93,18 @@ ots verify manifest-roasbeef-v0.16.0-beta.sig.ots -f manifest-roasbeef-v0.16.0-b
 ```
 
 ## Now install
-```
+```shell
 tar -xzf lnd-linux-amd64-v0.16.0-beta.tar.gz
 
 sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v0.16.0-beta/*
 
-# you should get -> lnd version 0.16.0-beta commit=v0.16.0-beta
 lnd --version
 ```
+>lnd version 0.16.0-beta commit=v0.16.0-beta
 
 
 ## Data Directory
-```
+```shell
 sudo adduser --disabled-password --gecos "" lnd
 
 # change Joe to your user.
@@ -128,12 +128,13 @@ ln -s /data/bitcoin /home/lnd/.bitcoin
 
 ### Create LND wallet password (Nano is text editor, control x to exit nano)
 
-```
+```shell
 # As user “lnd”, create a text file and enter your LND wallet password. Save and exit (ctrl C)
 nano /data/lnd/password.txt
 ```
-Tighten access privileges and make the file readable only for user “lnd”
-```
+
+```shell
+# Tighten access privileges and make the file readable only for user “lnd”
 chmod 600 /data/lnd/password.txt 
 ```
 ## Configuration 
@@ -144,7 +145,7 @@ Create the LND configuration file and paste the following content below. Make su
 nano /data/lnd/lnd.conf
 ```
 
-```
+```ini
 # RaspiBolt: lnd configuration
 # /data/lnd/lnd.conf
 
@@ -250,7 +251,7 @@ You will be given your seed. save in a safe and secure place.
 !!!YOU MUST WRITE DOWN THIS SEED TO BE ABLE TO RESTORE THE WALLET!!!
 
 
-```
+```shell
 # Close out of second LND session
 $2 exit
 ```
@@ -260,18 +261,18 @@ Back in your first SSH session where LND is still running Stop LND with Ctrl-C.
 lnd
 ```
 You will see something like this near the top:
+```shell
+# [INF] LNWL: The wallet has been unlocked without a time limit
 
-[INF] LNWL: The wallet has been unlocked without a time limit
-
-[INF] CHRE: LightningWallet opened
-
+#[INF] CHRE: LightningWallet opened
+```
 ### Create LND systemd unit with the following content. Save and exit. Back to Joe user. Enter `exit` if your still in user LND to get back to user joe.
 
-```
+```shell
 sudo nano /etc/systemd/system/lnd.service
 ```
 
-```
+```ini
 # RaspiBolt: systemd unit for lnd
 # /etc/systemd/system/lnd.service
 
@@ -327,31 +328,32 @@ WantedBy=multi-user.target
 
 ```
 ## Lastly, Enable, start and unlock LND
-```
+```shell
 sudo systemctl enable lnd
 sudo systemctl start lnd
 systemctl status lnd
+# make sure it shows enabled in green.
 ```
-->make sure it shows enabled in green.
 
-```
+
+```shell
 # reboot session
 sudo reboot
 ```
 ## Create lncli commands
-```
+```shell
 sudo su - joe
 ln -s /data/lnd /home/joe/.lnd
 sudo chmod -R g+X /data/lnd/data/
 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon
 ```
 After your up and running for a couple minutes you should see a couple peers connect and and sync to chain with this command:
-```
+```shell
 lncli getinfo
 ```
 
 ### Install Node (Nosft & BOS prerequisite)
-```
+```shell
 curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo apt-get update
@@ -361,14 +363,14 @@ npm -v
 You should be running node-> v18.15.0 and npm-> 9.6.3.
 
 # Optional: Install NOSFT!
-```
+```shell
 # Install Nosft repo:
 git clone https://github.com/dannydeezy/nosft.git 
 cd nosft
 npm install
 ```
 ## Run Nosft
-```
+```shell
 # After running this command leave terminal running while using Nosft in your browser
 npm run dev
 ```
@@ -379,10 +381,10 @@ Install Docker (for LNDG). Set up and install Docker Engine from [Docker’s a
 
 ### Set up the repository
 1. Update the apt package index and install packages to allow apt to use a repository over HTTPS:
-```
+```shell
 sudo apt-get update
 ```
-```
+```shell
 sudo apt-get install \
     ca-certificates \
     curl \
@@ -390,15 +392,15 @@ sudo apt-get install \
 ```
 
 2. Add Docker’s official GPG key:
-```
+```shell
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 ```
-```
+```shell
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 ```
 
 3. Use the following command to set up the repository:
-```
+```shell
 echo \
   "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
@@ -407,24 +409,24 @@ echo \
 
 Install Docker Engine
 1. Update the apt package index:
-```
+```shell
 sudo apt-get update
 ```
 2. Install Docker Engine, containerd, and Docker Compose.
     1. To install the latest version, run:
-```
+```shell
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 3. Verify that the Docker Engine installation is successful by running the hello-world image:
 
-```
+```shell
 sudo docker run hello-world
 ```
 
 
 ### Install Docker compose
 
-```
+```shell
 sudo apt  install docker-compose
 ```
 
@@ -432,26 +434,24 @@ sudo apt  install docker-compose
 ## Install NGINX (LNDg prerequisite)
 [Install Source](https://raspibolt.org/guide/raspberry-pi/security.html#prepare-nginx-reverse-proxyd)
 
-```
-$ sudo apt install nginx
-```
-
-Create a self-signed SSL/TLS certificate (valid for 10 years)
-
-```
-$ sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/CN=localhost" -days 3650
+```shell
+sudo apt install nginx
 ```
 
-NGINX is also a full webserver. To use it only as a reverse proxy, remove the default configuration and paste the following configuration into the nginx.conf file.
-
-```
-$ sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
-```
-```
-$ sudo nano /etc/nginx/nginx.conf
+```shell
+# Create a self-signed SSL/TLS certificate (valid for 10 years)
+sudo openssl req -x509 -nodes -newkey rsa:4096 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/CN=localhost" -days 3650
 ```
 
+```shell 
+# NGINX is also a full webserver. To use it only as a reverse proxy, remove the default configuration and paste the following configuration into the nginx.conf file.
+sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 ```
+```shell
+sudo nano /etc/nginx/nginx.conf
+```
+
+```ini
 user www-data;
 worker_processes 1;
 pid /run/nginx.pid;
@@ -473,18 +473,19 @@ stream {
 
 }
 ```
-Create a new directory for future configuration files
 
-```
-$ sudo mkdir /etc/nginx/streams-enabled
+```shell
+# Create a new directory for future configuration files
+sudo mkdir /etc/nginx/streams-enabled
 ```
 
 Test this barebone NGINX configuration
 
-```
-$ sudo nginx -t
+```shell
+sudo nginx -t
 ```
 > nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+
 > nginx: configuration file /etc/nginx/nginx.conf test is successful
 
 
@@ -501,7 +502,7 @@ Copy and replace the contents (adjust custom volume paths and user "joe" to LND 
 ```
 nano docker-compose.yaml
 ```
-```
+```ini
 services:
   lndg:
     build: .
@@ -533,7 +534,7 @@ sudo docker-compose down
 sudo docker-compose build --no-cache
 sudo docker-compose up -d
 ```
-```
+```shell
 ## OPTIONAL: remove unused builds and objects
 sudo docker system prune -f
 ```
@@ -592,7 +593,7 @@ create a so called unit-file: `sudo touch bos-telegram.service`
 open file with: `sudo nano bos-telegram.service`
 
 copy the following content into it, change VERBINDUNGSCODE with your own code:
-```
+```ini
 # /etc/systemd/system/bos-telegram.service
 
 [Unit]

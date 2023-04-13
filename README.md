@@ -10,7 +10,7 @@ This is a dedicated guide to help quickly spin up a Neutrino node with lnd 0.16.
 Neutrino is a great way to familiarize yourself with bitcoin. Since it is self-custody you will be responsible for your keys (mnemonic seed). It's quick and cheap to get started, making it ideal for testing. It's a great way to run Nosft locally. If you run a full node it is commonly used as a watchtower or used for its static clearnet IP in [hybrid mode](https://github.com/TrezorHannes/Dual-LND-Hybrid-VPS). Since its a light client and doesn't store the blockchain it has also been a primary driver for mobile applications. Check out [Neutrino](https://river.com/learn/terms/n/neutrino/) for more info.
 
 ### The guide:
-This guide is based on the Raspibolt guide with some modifications for it to be a Neutrino node. This is a quick guide with little commentary and explaination. If you want to know everything that is going on and run a full node you can find the full guide here at [Raspibolt](https://raspibolt.org/guide/lightning/lightning-client.html).  My user is joe. Anywhere you see joe, change it to your user. Don't copy anything in (parentheses) or the $ you see in the begining of some commands. I left out $ signs in some parts so i can copy the `blocks` faster ⚡️.
+This guide is based on the Raspibolt guide with some modifications for it to be a Neutrino node. This is a quick guide with little commentary and explaination. If you want to know everything that is going on and run a full node you can find the full guide here at [Raspibolt](https://raspibolt.org/guide/lightning/lightning-client.html).  My user is joe. Anywhere you see joe, change it to your user ⚡️.
 
 For added security features check out [Raspibolt](https://raspibolt.org/guide/raspberry-pi/security.html) and [Digital Ocean](https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands) Guides.
 
@@ -31,9 +31,13 @@ Use my [referral link here](https://m.do.co/c/e22779be4678). You will get $200 i
 
 ## Set up user
 ```
-$ adduser joe (Save pw)
-$ usermod -aG sudo joe (enter thru, no need to enter info)
-$ rsync --archive --chown=joe:joe ~/.ssh /home/joe
+# save password; change user joe to your user
+adduser joe
+
+# enter thru, no need to enter info
+usermod -aG sudo joe
+
+rsync --archive --chown=joe:joe ~/.ssh /home/joe
 ```
 ## Set up basic firewall (UFW) as root user
 ```
@@ -43,23 +47,24 @@ ufw enable
 ufw status
 sudo systemctl enable ufw
 ```
-For LNDg, Nosft: allow home IP address (reminder dont copy the $, its there so you can stop to make edit).
+For LNDg and Nosft: allow home IP address to access the software through your browser.
 ```
-$ sudo ufw allow from xxx.xx.xxx.xxx (Replace xxx.xx.xxx.xxx w/your home IP, google what’s my ip)
+# Replace xxx.xx.xxx.xxx w/your home IP, google what’s my ip
+sudo ufw allow from xxx.xx.xxx.xxx
 ```
 
-->Optional: allow for nosft
+-> Optional: allow for nosft
 ```
 sudo ufw allow 3000/tcp comment ‘nosft’
 ```
-->Optional: allow for lndg
+-> Optional: allow for lndg
 ```
 sudo ufw allow 8889/tcp comment 'allow LNDg SSL'
 ```
 
 ## Verify and Install LND
 
-As user joe we will verify the install. (this is where i stopped using $).
+As user joe we will verify the install.
 
 ```
 sudo su - joe
@@ -92,24 +97,26 @@ tar -xzf lnd-linux-amd64-v0.16.0-beta.tar.gz
 
 sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v0.16.0-beta/*
 
+# you should get -> lnd version 0.16.0-beta commit=v0.16.0-beta
 lnd --version
 ```
--> lnd version 0.16.0-beta commit=v0.16.0-beta
+
 
 ## Data Directory
-Used -p creates the parent directory. Change joe to your user.
 ```
 sudo adduser --disabled-password --gecos "" lnd
 
+# change Joe to your user.
 sudo adduser joe lnd
 
+# Used -p creates the parent directory.
 sudo mkdir -p /data/lnd  
 
 sudo chown joe:joe /data
 
 sudo chown -R lnd:lnd /data/lnd
 ```
-Now as user lnd.
+Change to user lnd.
 ```
 sudo su - lnd
 
@@ -119,9 +126,9 @@ ln -s /data/bitcoin /home/lnd/.bitcoin
 ```
 
 ### Create LND wallet password (Nano is text editor, control x to exit nano)
-As user “lnd”, create a text file and enter your LND wallet password. Save and exit (ctrl C)
 
 ```
+# As user “lnd”, create a text file and enter your LND wallet password. Save and exit (ctrl C)
 nano /data/lnd/password.txt
 ```
 Tighten access privileges and make the file readable only for user “lnd”
@@ -241,8 +248,9 @@ You will be given your seed. save in a safe and secure place.
 
 !!!YOU MUST WRITE DOWN THIS SEED TO BE ABLE TO RESTORE THE WALLET!!!
 
--> Close out of second LND session
+
 ```
+# Close out of second LND session
 $2 exit
 ```
 
@@ -323,9 +331,10 @@ sudo systemctl enable lnd
 sudo systemctl start lnd
 systemctl status lnd
 ```
-->make sure it shows enabled in green. Then reboot.
+->make sure it shows enabled in green.
 
 ```
+# reboot session
 sudo reboot
 ```
 ## Create lncli commands

@@ -33,8 +33,9 @@ Use my [referral link here](https://m.do.co/c/e22779be4678). You will get $200 i
 ```
 # save password; change user joe to your user
 adduser joe
-
-# enter thru, no need to enter info
+```
+```
+# grant sudo permssions to user joe
 usermod -aG sudo joe
 
 rsync --archive --chown=joe:joe ~/.ssh /home/joe

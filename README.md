@@ -349,8 +349,6 @@ After your up and running for a couple minutes you should see a couple peers con
 lncli getinfo
 ```
 
-# Optional: Install NOSFT!
-
 ### Install Node (Nosft & BOS prerequisite)
 ```
 curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
@@ -361,17 +359,18 @@ npm -v
 ```
 You should be running node-> v18.15.0 and npm-> 9.6.3.
 
-### Install Nosft repo:
+# Optional: Install NOSFT!
 ```
+# Install Nosft repo:
 git clone https://github.com/dannydeezy/nosft.git 
 cd nosft
 npm install
+```
+## Run Nosft
+```
+# After running this command leave terminal running while using Nosft in your browser
 npm run dev
 ```
-leave $nmp run dev running.
-
-### Run Nosft
-
 While terminal is open and running, enter in your browser: your "Reserved_IP:3000"
 
 # Optional: Install LNDg

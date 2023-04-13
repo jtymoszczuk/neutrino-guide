@@ -374,18 +374,6 @@ leave $nmp run dev running.
 
 While terminal is open and running, enter in your browser: your "Reserved_IP:3000"
 
-### if errors:
-A couple times I received some errors. Running this ended up helping.
-```
-rm -rf nosft
-npm cache clean --force
-npm install @netlify/esbuild
-git clone https://github.com/dannydeezy/nosft.git 
-cd nosft
-npm install
-npm run dev
-```
-
 # Optional: Install LNDg
 
 ## Install Docker (LNDg prerequisite)

@@ -232,12 +232,12 @@ lnd
 Open a second terminal and keep lnd running in the first terminal session running with lnd.
 Commands for the second session start with the prompt $2.
 
-```
+```shell
 # $2
 sudo su - lnd
 ```
 You will enter the password that matches `nano /data/lnd/password.txt` after `lncli create' then type “n”, enter, enter
-```
+```shell
 # $2
 lncli create 
 ```

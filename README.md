@@ -44,6 +44,8 @@ rsync --archive --chown=joe:joe ~/.ssh /home/joe
 ```
 ufw app list
 ufw allow OpenSSH
+ufw allow 9735
+ufw allow 10009
 ufw enable
 ufw status
 sudo systemctl enable ufw

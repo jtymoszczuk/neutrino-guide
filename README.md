@@ -120,9 +120,10 @@ sudo chown joe:joe /data
 sudo chown -R lnd:lnd /data/lnd
 ```
 Change to user lnd.
-```
+```shell
 sudo su - lnd
-
+```
+```shell
 ln -s /data/lnd /home/lnd/.lnd
 
 ln -s /data/bitcoin /home/lnd/.bitcoin
@@ -229,14 +230,16 @@ lnd
 ```
 
 Open a second terminal and keep lnd running in the first terminal session running with lnd.
-Commands for the second session start with the prompt $2 (which must not be entered).
+Commands for the second session start with the prompt $2.
 
 ```
-$2 sudo su - lnd
+# $2
+sudo su - lnd
 ```
 You will enter the password that matches `nano /data/lnd/password.txt` after `lncli create' then type “n”, enter, enter
 ```
-$2 lncli create 
+# $2
+lncli create 
 ```
 You will be given your seed. save in a safe and secure place.
 
@@ -254,8 +257,8 @@ You will be given your seed. save in a safe and secure place.
 
 
 ```shell
-# Close out of second LND session
-$2 exit
+# Close out of second LND session 
+exit
 ```
 
 Back in your first SSH session where LND is still running Stop LND with Ctrl-C. As user “lnd” check if the wallet is unlocked automatically.
@@ -344,7 +347,11 @@ sudo reboot
 ```
 ## Create lncli commands
 ```shell
+# log back into your user
 sudo su - joe
+```
+
+```shell
 ln -s /data/lnd /home/joe/.lnd
 sudo chmod -R g+X /data/lnd/data/
 sudo chmod g+r /data/lnd/data/chain/bitcoin/mainnet/admin.macaroon

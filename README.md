@@ -67,11 +67,11 @@ sudo ufw allow 8889/tcp comment 'allow LNDg SSL'
 
 ## Verify and Install LND
 
-As user joe we will verify the install.
-
 ```
+# As user joe we will verify the install.
 sudo su - joe
-
+```
+```
 cd /tmp
 
 sudo apt install ots

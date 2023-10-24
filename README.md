@@ -76,33 +76,37 @@ cd /tmp
 
 sudo apt install ots
 ```
+### Create the shell variable for the version update.
 ```
-wget https://github.com/lightningnetwork/lnd/releases/download/v0.16.0-beta/lnd-linux-amd64-v0.16.0-beta.tar.gz
+VERSION="0.17.0"
+```
+```
+wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/lnd-linux-amd64-v$VERSION-beta.tar.gz
 
-wget https://github.com/lightningnetwork/lnd/releases/download/v0.16.0-beta/manifest-v0.16.0-beta.txt
+wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-v$VERSION-beta.txt
 
-wget https://github.com/lightningnetwork/lnd/releases/download/v0.16.0-beta/manifest-roasbeef-v0.16.0-beta.sig
+wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig
 
-wget https://github.com/lightningnetwork/lnd/releases/download/v0.16.0-beta/manifest-roasbeef-v0.16.0-beta.sig.ots
+wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/manifest-roasbeef-v$VERSION-beta.sig.ots
 
-sha256sum --check manifest-v0.16.0-beta.txt --ignore-missing
+sha256sum --check manifest-v$VERSION-beta.txt --ignore-missing
 
 curl https://raw.githubusercontent.com/lightningnetwork/lnd/master/scripts/keys/roasbeef.asc | gpg --import
 
-gpg --verify manifest-roasbeef-v0.16.0-beta.sig manifest-v0.16.0-beta.txt
+gpg --verify manifest-roasbeef-v$VERSION-beta.sig manifest-v$VERSION-beta.txt
 
-ots verify manifest-roasbeef-v0.16.0-beta.sig.ots -f manifest-roasbeef-v0.16.0-beta.sig
+ots verify manifest-roasbeef-v$VERSION-beta.sig.ots -f manifest-roasbeef-v$VERSION-beta.sig
 ```
 
 ## Now install
 ```shell
-tar -xzf lnd-linux-amd64-v0.16.0-beta.tar.gz
+tar -xzf lnd-linux-amd64-v$VERSION-beta.tar.gz
 
-sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v0.16.0-beta/*
+sudo install -m 0755 -o root -g root -t /usr/local/bin lnd-linux-amd64-v$VERSION-beta/*
 
 lnd --version
 ```
->lnd version 0.16.0-beta commit=v0.16.0-beta
+>lnd version 0.17.0-beta commit=v0.17.0-beta
 
 
 ## Data Directory

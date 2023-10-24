@@ -1,5 +1,5 @@
 # A Dedicated Neutrino Guide: ⚡️
-This is a dedicated guide to help quickly spin up a Neutrino node with lnd 0.16.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. Its a WIP 👷🏻‍♂️. This guide will give you options to add more tools:
+This is a dedicated guide to help quickly spin up a Neutrino node with lnd 0.17.0-Beta. I recommended going through all of the security features on the Raspibolt and Digital ocean guide as part of DYOR before you commit more than a few sats on this node. Its a WIP 👷🏻‍♂️. This guide will give you options to add more tools:
 + [Watchtower](https://github.com/jtymoszczuk/neutrino-guide#configuration) support
 - [NOSFT locally](https://github.com/jtymoszczuk/neutrino-guide#optional-install-nosft) (prerequisites: [Node v18+](https://github.com/jtymoszczuk/neutrino-guide#install-node-nosft--bos-prerequisite))
 * [LNDg](https://github.com/jtymoszczuk/neutrino-guide#optional-install-lndg) (prerequisites: [NGNIX](https://github.com/jtymoszczuk/neutrino-guide#install-nginx-lndg-prerequisite), [Docker](https://github.com/jtymoszczuk/neutrino-guide#install-docker-lndg-prerequisite))

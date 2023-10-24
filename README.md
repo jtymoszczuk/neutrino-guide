@@ -65,7 +65,7 @@ sudo ufw allow 3000/tcp comment ‘nosft’
 sudo ufw allow 8889/tcp comment 'allow LNDg SSL'
 ```
 
-## Verify and Install LND
+## Download, Verify and Install LND
 
 ```
 # As user joe we will verify the install.
@@ -76,10 +76,11 @@ cd /tmp
 
 sudo apt install ots
 ```
-### Create the shell variable for the version update.
+Create the shell variable for the version update.
 ```
 VERSION="0.17.0"
 ```
+Download and verify the $VERSION.
 ```
 wget https://github.com/lightningnetwork/lnd/releases/download/v$VERSION-beta/lnd-linux-amd64-v$VERSION-beta.tar.gz
 

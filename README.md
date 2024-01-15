@@ -502,7 +502,11 @@ sudo nginx -t
 
 > nginx: configuration file /etc/nginx/nginx.conf test is successful
 
+If you run into the unknown directive "stream" error, then you need to install the stream module first:
 
+```shell
+sudo apt install libnginx-mod-stream
+```
 
 # Optional: Install LNDg
 [Install Source](https://github.com/cryptosharks131/lndg#docker-installation-requires-docker-and-docker-compose-be-installed)

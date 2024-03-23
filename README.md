@@ -594,7 +594,7 @@ Go to Telegram Start chat with @BotFather press `/start /newbot` Decide A bot na
 You will get a long alphanumeric API KEY for the bot, Note that. You can always retrieve it using `/mybot` with BotFather
 BotFather will give you a link to your new bot, click on it and it will take you to your bot.
 
-Now come back to your node. On your SSH session run: bos telegram at first prompt type API key (alpha numeric) received from BotFather.
+Now come back to your node. On your SSH session run: `bos telegram` at first prompt type API key (alpha numeric) received from BotFather.
 
 In Telegram go to your bot by clicking on the link provided in BotFather. Then press Start. Type /connect. You will get a numeric key, type that numeric key on the second prompt in your ssh session with bos telegram.
 

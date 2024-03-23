@@ -621,7 +621,7 @@ After=lnd.service
 
 
 [Service] 
-ExecStart=/home/bos/.npm-global/bin/bos telegram --use-small-units --connect <your connection code>
+ExecStart=/home/<your_user>/.npm-global/bin/bos telegram --use-small-units --connect <your_connection_code>
 User=<your_user>
 Restart=always
 TimeoutSec=120

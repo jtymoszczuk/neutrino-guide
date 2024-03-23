@@ -610,7 +610,7 @@ create a so called unit-file: `sudo touch bos-telegram.service`
 
 open file with: `sudo nano bos-telegram.service`
 
-copy the following content into it, change VERBINDUNGSCODE with your own code:
+copy the following content into it, adding in your connection code and your user:
 ```ini
 # /etc/systemd/system/bos-telegram.service
 
@@ -621,8 +621,8 @@ After=lnd.service
 
 
 [Service] 
-ExecStart=/home/bos/.npm-global/bin/bos telegram --use-small-units --connect VERBINDUNGSCODE
-User=bos
+ExecStart=/home/bos/.npm-global/bin/bos telegram --use-small-units --connect <your connection code>
+User=<your_user>
 Restart=always
 TimeoutSec=120
 RestartSec=30

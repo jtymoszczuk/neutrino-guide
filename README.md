@@ -444,6 +444,14 @@ sudo docker run hello-world
 sudo apt  install docker-compose
 ```
 
+### Run Docker without 'Sudo'
+```shell
+# If you don't want to preface the docker command with sudo, create a Unix group called docker and add users to it. When the Docker daemon starts, it creates a Unix socket accessible by members of the docker group.
+sudo groupadd docker
+sudo usermod -aG docker $USER
+newgrp docker
+docker run hello-world
+```
 
 ## Install NGINX (LNDg prerequisite)
 [Install Source](https://raspibolt.org/guide/raspberry-pi/security.html#prepare-nginx-reverse-proxyd)
